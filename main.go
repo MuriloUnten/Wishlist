@@ -1,15 +1,17 @@
 package main
 
 import (
-    "net/http"
+    "net/http";
+    "html/template"
 )
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
-    w.Write([]byte("Welcome"))
+    tmpl := template.Must(template.ParseFiles("./templates/index.html"))
+    tmpl.Execute(w, nil)
 }
 
 
 func main() {
-    http.HandleFunc("/home", homeHandler)
+    http.HandleFunc("/", homeHandler)
     http.ListenAndServe(":8080", nil)
 }
